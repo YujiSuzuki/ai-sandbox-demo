@@ -4,7 +4,7 @@ An iOS application implemented with SwiftUI. This is a demo that showcases nativ
 
 **For Japanese documentation, see [README.ja.md](README.ja.md)**
 
-> ⚠️ **Note:** This demo has not been fully tested and actually contains bugs. If you find any issues, you can use DockMCP to have AI investigate them. That itself is a practical use case for DockMCP.
+> ⚠️ **Note:** This demo has not been fully tested and actually contains bugs. If you find any issues, you can use HostMCP to have AI investigate them. That itself is a practical use case for the sandbox.
 >
 > 📝 **Hint:** The feature descriptions (request/response examples, etc.) also contain bugs. Compare with the Web version in [demo-apps/README.md](../demo-apps/README.md) to find differences.
 

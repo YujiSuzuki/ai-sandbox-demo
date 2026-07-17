@@ -85,7 +85,7 @@ When running in DevContainer, these files are NOT visible to AI assistants:
 cat demo-apps/securenote-api/secrets/jwt-secret.key
 # => (empty or error)
 
-# Use DockMCP to query the API
+# Direct verification (not via AI) that the API itself still has the secret:
 curl http://api.securenote.test:8000/api/demo/secrets-status
 # => { "secretsLoaded": true, "proof": { ... } }
 ```
@@ -108,22 +108,6 @@ This proves the API has secrets, but AI doesn't!
 └─────────────────────────────┘
 ```
 
-## Testing via DockMCP
+## Testing via HostMCP
 
-With DockMCP MCP server running, AI assistants can:
-
-```javascript
-// List containers
-dkmcp.list_containers()
-
-// Get API logs
-dkmcp.get_logs("securenote-api", { tail: "50" })
-
-// Run tests
-dkmcp.exec_command("securenote-api", "npm test")
-
-// Check stats
-dkmcp.get_stats("securenote-api")
-```
-
-All without accessing secrets directly!
+With [AI Sandbox](https://github.com/YujiSuzuki/ai-sandbox) connected to [HostMCP](https://github.com/YujiSuzuki/hostmcp), AI assistants can inspect this container by natural-language prompt — no direct API calls needed. See the [Hands-on Guide](../../hands-on.md) for prompts to try (listing containers, getting logs, running tests, checking stats), all without accessing secrets directly.

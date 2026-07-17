@@ -1,10 +1,10 @@
 # SecureNote デモアプリケーション
 
-**DockMCP**のデモンストレーションアプリケーション - AIコーディングアシスタントを使いながら秘密情報を保護する方法を体験できます。
+[AI Sandbox](https://github.com/YujiSuzuki/ai-sandbox) のデモンストレーションアプリケーション - AIコーディングアシスタントを使いながら秘密情報を保護する方法を体験できます。コンテナ間アクセスの制御は [HostMCP](https://github.com/YujiSuzuki/hostmcp) が担います。
 
 [English README is here](README.md)
 
-> ⚠️ **注意:** このデモは動作検証が十分ではありません。不具合を見つけたら、DockMCPを使ってAIに調査してもらうことができます。それ自体がDockMCPの実践的な使い方です。
+> ⚠️ **注意:** このデモは動作検証が十分ではありません。不具合を見つけたら、HostMCPを使ってAIに調査してもらうことができます。それ自体がサンドボックスの実践的な使い方です。
 
 ## このデモが示すもの
 
@@ -15,10 +15,8 @@
 - AIの学習データに誤って漏洩するリスク
 
 ### 解決策
-**このSandbox環境**と**DockMCP**の組み合わせが提供:
-1. **秘密情報の隔離** - ボリュームマウントを使ってAIから機密ファイルを隠す
-2. **クロスコンテナアクセス** - AIはDockMCP経由でログ確認、テスト実行が可能
-3. **通常の開発** - ワークフローの中断なし
+
+AI Sandbox がボリュームマウントで秘匿情報を隠し、HostMCP がAIに他コンテナへの制御されたアクセスを提供します。一般的な仕組みは [AI Sandbox](https://github.com/YujiSuzuki/ai-sandbox#readme) と [HostMCP](https://github.com/YujiSuzuki/hostmcp#readme) を参照してください — このデモはそれらを具体的なアプリに適用した例です。
 
 ## アーキテクチャ
 
@@ -31,8 +29,8 @@
 │                                          │
 │ Claude Codeができること:                 │
 │ ✅ アプリケーションコードを読む           │
-│ ✅ DockMCPでAPIログを確認              │
-│ ✅ DockMCPでテスト実行                 │
+│ ✅ HostMCPでAPIログを確認              │
+│ ✅ HostMCPでテスト実行                 │
 │ 🔐 秘密情報は読めない                    │
 └──────────────────────────────────────────┘
 
@@ -80,31 +78,18 @@ open http://securenote.test:8000
 2. 暗号化されたメモを作成
 3. メモはAIが見えない秘密情報を使って暗号化される！
 
-### オプション2: DockMCPでプロジェクトのコンテナへ安全にアクセス
+### オプション2: HostMCPでプロジェクトのコンテナへ安全にアクセス
 
 **所要時間:** 15分
-**必要なもの:** Docker Desktop（または OrbStack） + DockMCP
+**必要なもの:** Docker Desktop（または OrbStack） + HostMCP接続済みの [AI Sandbox](https://github.com/YujiSuzuki/ai-sandbox)
 
-```bash
-# 1. ホストOSでDockMCPをインストール・起動（https://github.com/YujiSuzuki/dkmcp 参照）
-go install github.com/YujiSuzuki/dkmcp@latest
-curl -L https://raw.githubusercontent.com/YujiSuzuki/dkmcp/main/configs/dkmcp.example.yaml -o dkmcp.yaml
-dkmcp serve --config dkmcp.yaml
-# DockMCPが http://localhost:8080 で動作
-
-# 2. デモアプリケーションを起動
-cd demo-apps
-docker-compose -f docker-compose.demo.yml up -d
-
-# 3. VS CodeでDevContainerを開く
-code ..
-# Claude Codeが自動的にDockMCPに接続
-
-# 4. Claude Codeに聞いてみる:
-"securenote-apiのログを表示して"
-"securenote-apiコンテナでテストを実行して"
-"APIで秘密情報が読み込まれているか確認して"
-```
+1. AI Sandbox + HostMCP をセットアップ — [ai-sandbox README のオプションB](https://github.com/YujiSuzuki/ai-sandbox#オプションb-sandbox--hostmcp)、またはより詳しい [はじめにガイド](https://github.com/YujiSuzuki/ai-sandbox/blob/main/docs/getting-started.ja.md) を参照
+2. このデモアプリケーションを起動:
+   ```bash
+   cd demo-apps
+   docker-compose -f docker-compose.demo.yml up -d
+   ```
+3. AI Sandbox 内で、[ハンズオンガイド](../hands-on.ja.md) のプロンプトを試す — 例:「securenote-apiのログを表示して」
 
 ## プロジェクト構造
 
@@ -165,10 +150,10 @@ cat demo-apps/securenote-api/secrets/jwt-secret.key
 cat demo-apps/securenote-api/.env
 # 出力: (空)
 
-# しかしDockMCPは使える！
-# Claude Codeに聞く: "APIのログを確認して"
-# Claude Codeに聞く: "securenote-apiで npm test を実行して"
+# しかしHostMCPは使える！
 ```
+
+試せるプロンプトは [ハンズオンガイド](../hands-on.ja.md) を参照してください。
 
 ### APIが秘密情報を持っていることを確認:
 
@@ -206,6 +191,6 @@ docker-compose -f docker-compose.demo.yml down
 
 ## 詳細情報
 
-- [DockMCP ドキュメント](https://github.com/YujiSuzuki/dkmcp#readme)
+- [HostMCP ドキュメント](https://github.com/YujiSuzuki/hostmcp#readme)
 - [AI Sandbox](https://github.com/YujiSuzuki/ai-sandbox)
 - [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)

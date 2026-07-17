@@ -88,7 +88,7 @@ DevContainer 内で動作する場合、以下のファイルは AI アシスタ
 cat demo-apps/securenote-api/secrets/jwt-secret.key
 # => （空または エラー）
 
-# DockMCP を使って API に問い合わせ
+# （AI経由ではなく）直接、API自体がシークレットを保持していることを確認:
 curl http://api.securenote.test:8000/api/demo/secrets-status
 # => { "secretsLoaded": true, "proof": { ... } }
 ```
@@ -111,22 +111,6 @@ curl http://api.securenote.test:8000/api/demo/secrets-status
 └─────────────────────────────┘
 ```
 
-## DockMCP 経由のテスト
+## HostMCP 経由のテスト
 
-DockMCP MCP サーバーが動作していれば、AI アシスタントは以下のような操作が可能です：
-
-```javascript
-// コンテナ一覧を取得
-dkmcp.list_containers()
-
-// API のログを取得
-dkmcp.get_logs("securenote-api", { tail: "50" })
-
-// テストを実行
-dkmcp.exec_command("securenote-api", "npm test")
-
-// リソース統計を確認
-dkmcp.get_stats("securenote-api")
-```
-
-シークレットに直接アクセスせずに、これらの操作ができます。
+[AI Sandbox](https://github.com/YujiSuzuki/ai-sandbox) が [HostMCP](https://github.com/YujiSuzuki/hostmcp) に接続されていれば、AI アシスタントは自然言語のプロンプトだけでこのコンテナを調査できます — 直接APIを呼び出す必要はありません。試せるプロンプト(コンテナ一覧取得、ログ取得、テスト実行、リソース統計確認)は [ハンズオンガイド](../../hands-on.ja.md) を参照してください。シークレットに直接アクセスせずに、これらの操作ができます。
