@@ -4,7 +4,7 @@
   "version": "1.0",
   "buildNumber": "1",
   "target": "iOS",
-  "minimumDeploymentTarget": "14.0",
+  "minimumDeploymentTarget": "17.0",
   "files": [
     "SecureNote/App.swift",
     "SecureNote/AuthManager.swift",
@@ -20,10 +20,8 @@
   ],
   "description": "SwiftUI で実装された SecureNote iOS アプリ。ネイティブなログイン画面と WebView による Web フロントエンド統合のデモ。",
   "setup": {
-    "step1": "バックエンドを起動: cd /workspace/demo-apps && docker-compose -f docker-compose.demo.yml up -d",
-    "step2": "Xcode でプロジェクトを作成: open SecureNote.xcodeproj",
-    "step3": "上記の Swift ファイルをプロジェクトに追加",
-    "step4": "Info.plist の内容をプロジェクトに適用",
-    "step5": "シミュレーターで実行: Cmd + R"
+    "step1": "バックエンドを起動（README.md のクイックスタート参照）",
+    "step2": "Xcode でプロジェクトを開く: open SecureNote.xcodeproj",
+    "step3": "シミュレーターで実行: Cmd + R"
   }
 }

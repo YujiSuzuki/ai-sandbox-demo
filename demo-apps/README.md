@@ -44,50 +44,22 @@ AI Sandbox hides secrets via volume mounts, and HostMCP gives AI controlled acce
 
 ## Quick Start
 
-### Option 1: Web Demo (Recommended First Try)
-
-**Time:** 5 minutes
-**Requirements:** Docker Desktop only
-
-```bash
-# 1. Start the demo application
-cd demo-apps
-docker-compose -f docker-compose.demo.yml up -d
-
-# 2. Watch logs until services are ready (~30 seconds)
-#    Press Ctrl+C once you see "Server running on port 8080"
-docker-compose -f docker-compose.demo.yml logs -f
-
-# 3. Add custom domain to /etc/hosts (first time only)
-echo "127.0.0.1 securenote.test api.securenote.test" | sudo tee -a /etc/hosts
-
-# 4. Open in browser
-open http://securenote.test:8000
-```
-
-> **Note:** Domain-based access is required due to nginx configuration. `localhost:8000` returns 404.
-
-**Login:**
-- Username: `demo` Password: `demo123`
-- Username: `alice` Password: `alice123`
-
-**Try it out:**
-1. Login with demo credentials
-2. Create some encrypted notes
-3. Notes are encrypted using secrets that AI cannot see!
-
-### Option 2: With HostMCP (Full Experience)
-
-**Time:** 15 minutes
+**Time:** ~15 minutes
 **Requirements:** Docker Desktop (or OrbStack) + [AI Sandbox](https://github.com/YujiSuzuki/ai-sandbox) with HostMCP connected
 
 1. Set up AI Sandbox + HostMCP — see the [ai-sandbox README, Option B](https://github.com/YujiSuzuki/ai-sandbox#option-b-sandbox--hostmcp) (or the more detailed [Getting Started Guide](https://github.com/YujiSuzuki/ai-sandbox/blob/main/docs/getting-started.md))
-2. Start this demo application:
+2. In the AI Sandbox, ask the AI to "build and start the demo app" — this runs your AI Sandbox workspace's `docker-compose-build.sh` / `docker-compose-up.sh` from `.sandbox/host-tools/`, pointed at this demo's `demo-apps/docker-compose.demo.yml` (e.g. `demo-project/demo-apps/docker-compose.demo.yml` — see the [macOS Setup Guide](../macos-setup.md#3-download-this-demo-app) for the layout), via HostMCP (first run requires approval via `hostmcp tools sync`)
+3. Ask the AI to check that the containers are ready — e.g. "check the securenote-api logs" or "show me the container list" — it can check via HostMCP directly, so you don't need to watch logs yourself. Wait for this confirmation before continuing.
+4. Add the custom domain to `/etc/hosts` (first time only, on the host OS):
    ```bash
-   cd demo-apps
-   docker-compose -f docker-compose.demo.yml up -d
+   echo "127.0.0.1 securenote.test api.securenote.test" | sudo tee -a /etc/hosts
    ```
-3. In the AI Sandbox, try the prompts in the [Hands-on Guide](../hands-on.md) — e.g. "Show me logs from securenote-api"
+   > **Note:** Domain-based access is required due to nginx configuration. `localhost:8000` returns 404.
+5. Open `http://securenote.test:8000` in your browser and log in:
+   - Username: `demo` Password: `demo123`
+   - Username: `alice` Password: `alice123`
+6. Create some encrypted notes — they're encrypted using secrets that AI cannot see!
+7. Try the prompts in the [Hands-on Guide](../hands-on.md) — e.g. "Show me logs from securenote-api"
 
 ## Project Structure
 
@@ -173,10 +145,7 @@ curl http://api.securenote.test:8000/api/demo/secrets-status
 
 ## Stop Demo
 
-```bash
-cd demo-apps
-docker-compose -f docker-compose.demo.yml down
-```
+In the AI Sandbox, ask the AI to "stop the demo app" — this runs your AI Sandbox workspace's `.sandbox/host-tools/docker-compose-down.sh`, pointed at this demo's `demo-apps/docker-compose.demo.yml` (e.g. `demo-project/demo-apps/docker-compose.demo.yml`), via HostMCP.
 
 ## Access the Application
 

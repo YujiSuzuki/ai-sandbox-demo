@@ -55,8 +55,8 @@ AI Sandbox 内で、Claude Code（または Gemini）に次のようなプロン
 
 ### デモアプリのコンテナが見つからない
 
-- ホストOSで `docker ps` を実行し、コンテナが起動しているか確認
-- （`demo-apps/` から）`docker compose -f docker-compose.demo.yml up -d --build` を再実行
+- AI Sandbox内で、AIに「コンテナの一覧を見せて」と頼んで起動状況を確認（上記「AIに話しかけてみる」参照）
+- 起動していなければ、AIに「デモアプリをビルドして起動して」と頼む — AI Sandboxワークスペース側の`.sandbox/host-tools/`にある `docker-compose-build.sh`・`docker-compose-up.sh` が、このデモの`demo-apps/docker-compose.demo.yml`（例: `demo-project/demo-apps/docker-compose.demo.yml` — 配置は[macOSセットアップガイド](macos-setup.ja.md#3-デモアプリをダウンロードする)参照）に対してHostMCP経由で再実行されます
 - `hostmcp.yaml` の `allowed_containers` にコンテナ名のパターン（例: `securenote-*`）が含まれているか確認
 
 AI Sandbox / HostMCP 全般の接続トラブルについては、[AI Sandbox のトラブルシューティングガイド](https://github.com/YujiSuzuki/ai-sandbox/blob/main/docs/reference.ja.md#トラブルシューティング) を参照してください。

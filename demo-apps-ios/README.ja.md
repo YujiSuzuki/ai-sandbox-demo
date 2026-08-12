@@ -89,18 +89,16 @@ localStorage.setItem('auth_token', 'eyJhbGciOiJIUzI1NiIs...');
 ### 前提条件
 
 - **macOS**: 11 以上
-- **Xcode**: 14 以上
-- **iOS**: 14 以上をターゲット
+- **Xcode**: 15 以上
+- **iOS**: 17 以上をターゲット
+- **AI Sandbox + HostMCP**: 接続済み（バックエンド起動に必要 — [demo-apps/README.ja.md](../demo-apps/README.ja.md#クイックスタート) 参照）
 - **バックエンド**: `demo-apps` が実行中
 
 ### 実行方法
 
 #### 1. バックエンドを起動
 
-```bash
-cd demo-apps
-docker-compose -f docker-compose.demo.yml up -d
-```
+AI Sandbox内で、AIに「デモのバックエンドを起動して」と頼めば、AI Sandboxワークスペース側の`.sandbox/host-tools/docker-compose-up.sh`が、このデモの`demo-apps/docker-compose.demo.yml`（例: `demo-project/demo-apps/docker-compose.demo.yml`）に対してHostMCP経由で実行されます（初回は `hostmcp tools sync` での承認が必要です。[demo-apps/README.ja.md](../demo-apps/README.ja.md#クイックスタート) 参照）。
 
 **確認:**
 - API が `http://api.securenote.test:8000/api` で実行中
@@ -114,6 +112,8 @@ docker-compose -f docker-compose.demo.yml up -d
 cd demo-apps-ios
 open SecureNote.xcodeproj
 ```
+
+AI Sandbox + HostMCP を使っている場合は、AI に「iOSアプリをビルドして」と頼むこともできます — AI Sandboxワークスペース側の`.sandbox/host-tools/xcode-build.sh --project <このデモを配置したパス>/demo-apps-ios/SecureNote.xcodeproj`（例: `--project demo-project/demo-apps-ios/SecureNote.xcodeproj`）がHostMCP経由で実行され（初回は `hostmcp tools sync` での承認が必要です）、Xcodeを開かずにコンパイルチェックができます。ただし、シミュレーターでの実行（下記ステップ3〜4）はXcodeのGUI操作が必要です。
 
 #### 3. シミュレーターで実行
 
@@ -231,11 +231,9 @@ App.swift
 ```bash
 # バックエンドが実行中か確認
 curl http://api.securenote.test:8000/api/health
-
-# 実行していなければ起動
-cd demo-apps
-docker-compose -f docker-compose.demo.yml up -d
 ```
+
+実行していなければ、AIに「デモのバックエンドを起動して」と頼んでください — AI Sandboxワークスペース側の`.sandbox/host-tools/docker-compose-up.sh`が、このデモの`demo-apps/docker-compose.demo.yml`（例: `demo-project/demo-apps/docker-compose.demo.yml`）に対してHostMCP経由で実行されます。
 
 ### 2. カスタムドメインに接続できない
 

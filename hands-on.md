@@ -55,8 +55,8 @@ In the AI Sandbox, try these prompts with Claude Code (or Gemini):
 
 ### Demo app containers not found
 
-- Run `docker ps` on the host OS to verify the containers are running
-- Re-run `docker compose -f docker-compose.demo.yml up -d --build` (from `demo-apps/`)
+- In the AI Sandbox, ask the AI to "show me the list of containers" to verify they're running (see the "Talk to the AI" section above)
+- If they're not running, ask the AI to "build and start the demo app" — this re-runs your AI Sandbox workspace's `docker-compose-build.sh` / `docker-compose-up.sh` from `.sandbox/host-tools/`, pointed at this demo's `demo-apps/docker-compose.demo.yml` (e.g. `demo-project/demo-apps/docker-compose.demo.yml` — see the [macOS Setup Guide](macos-setup.md#3-download-this-demo-app) for the layout), via HostMCP
 - Check that `allowed_containers` in your `hostmcp.yaml` includes the container name patterns (e.g. `securenote-*`)
 
 For general AI Sandbox / HostMCP connection issues, see [AI Sandbox's Troubleshooting guide](https://github.com/YujiSuzuki/ai-sandbox/blob/main/docs/reference.md#troubleshooting).

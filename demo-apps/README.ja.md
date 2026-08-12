@@ -46,50 +46,22 @@ AI Sandbox がボリュームマウントで秘匿情報を隠し、HostMCP がA
 
 ## クイックスタート
 
-### オプション1: Webデモ（最初のお試しに推奨）
-
-**所要時間:** 5分
-**必要なもの:** Docker Desktop（または OrbStack）
-
-```bash
-# 1. デモアプリケーションを起動
-cd demo-apps
-docker-compose -f docker-compose.demo.yml up -d
-
-# 2. ログを確認して起動完了を待つ（約30秒）
-#    "Server running on port 8080" などが表示されたら Ctrl+C で終了
-docker-compose -f docker-compose.demo.yml logs -f
-
-# 3. /etc/hosts にカスタムドメインを追加（初回のみ）
-echo "127.0.0.1 securenote.test api.securenote.test" | sudo tee -a /etc/hosts
-
-# 4. ブラウザで開く
-open http://securenote.test:8000
-```
-
-> **注意:** nginx設定によりドメイン名でのアクセスが必要です。`localhost:8000` では404になります。
-
-**ログイン:**
-- ユーザー名: `demo` パスワード: `demo123`
-- ユーザー名: `alice` パスワード: `alice123`
-
-**試してみる:**
-1. デモ認証情報でログイン
-2. 暗号化されたメモを作成
-3. メモはAIが見えない秘密情報を使って暗号化される！
-
-### オプション2: HostMCPでプロジェクトのコンテナへ安全にアクセス
-
-**所要時間:** 15分
+**所要時間:** 約15分
 **必要なもの:** Docker Desktop（または OrbStack） + HostMCP接続済みの [AI Sandbox](https://github.com/YujiSuzuki/ai-sandbox)
 
 1. AI Sandbox + HostMCP をセットアップ — [ai-sandbox README のオプションB](https://github.com/YujiSuzuki/ai-sandbox#オプションb-sandbox--hostmcp)、またはより詳しい [はじめにガイド](https://github.com/YujiSuzuki/ai-sandbox/blob/main/docs/getting-started.ja.md) を参照
-2. このデモアプリケーションを起動:
+2. AI Sandbox 内で、AI に「デモアプリをビルドして起動して」と頼む — AI Sandboxワークスペース側の`.sandbox/host-tools/`にある `docker-compose-build.sh`・`docker-compose-up.sh` が、このデモの`demo-apps/docker-compose.demo.yml`（例: `demo-project/demo-apps/docker-compose.demo.yml` — 配置は[macOSセットアップガイド](../macos-setup.ja.md#3-デモアプリをダウンロードする)参照）に対して HostMCP 経由で実行されます（初回は `hostmcp tools sync` での承認が必要です）
+3. AI に「securenote-apiのログを見せて」「コンテナの一覧を見せて」などと頼んで、起動が完了しているか確認する — HostMCP経由でAIが直接確認できるので、自分でログを監視する必要はありません。次に進む前に、起動完了の確認を待ってください。
+4. `/etc/hosts` にカスタムドメインを追加（初回のみ、ホストOS上で）:
    ```bash
-   cd demo-apps
-   docker-compose -f docker-compose.demo.yml up -d
+   echo "127.0.0.1 securenote.test api.securenote.test" | sudo tee -a /etc/hosts
    ```
-3. AI Sandbox 内で、[ハンズオンガイド](../hands-on.ja.md) のプロンプトを試す — 例:「securenote-apiのログを表示して」
+   > **注意:** nginx設定によりドメイン名でのアクセスが必要です。`localhost:8000` では404になります。
+5. ブラウザで `http://securenote.test:8000` を開いてログイン:
+   - ユーザー名: `demo` パスワード: `demo123`
+   - ユーザー名: `alice` パスワード: `alice123`
+6. 暗号化されたメモを作成してみる — AIが見えない秘密情報を使って暗号化されます！
+7. [ハンズオンガイド](../hands-on.ja.md) のプロンプトを試す — 例:「securenote-apiのログを表示して」
 
 ## プロジェクト構造
 
@@ -175,10 +147,7 @@ curl http://api.securenote.test:8000/api/demo/secrets-status
 
 ## デモを停止
 
-```bash
-cd demo-apps
-docker-compose -f docker-compose.demo.yml down
-```
+AI Sandbox内で、AIに「デモアプリを停止して」と頼めば、AI Sandboxワークスペース側の`.sandbox/host-tools/docker-compose-down.sh`が、このデモの`demo-apps/docker-compose.demo.yml`（例: `demo-project/demo-apps/docker-compose.demo.yml`）に対してHostMCP経由で実行されます。
 
 ## アプリケーションへのアクセス
 

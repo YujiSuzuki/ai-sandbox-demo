@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject var authManager: AuthManager
+    @Environment(AuthManager.self) var authManager
 
     var body: some View {
         ZStack {
@@ -45,5 +45,5 @@ struct MainView: View {
 
 #Preview {
     MainView()
-        .environmentObject(AuthManager())
+        .environment(AuthManager())
 }

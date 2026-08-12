@@ -8,10 +8,10 @@ struct SecureNoteApp: App {
         WindowGroup {
             if authManager.isLoggedIn {
                 MainView()
-                    .environmentObject(authManager)
+                    .environment(authManager)
             } else {
                 LoginView()
-                    .environmentObject(authManager)
+                    .environment(authManager)
             }
         }
     }

@@ -7,7 +7,7 @@ struct WebViewContainer: View {
     var body: some View {
         ZStack {
             WebView(token: authToken)
-                .ignoresSafeArea(.container, axes: .vertical)
+                .ignoresSafeArea(.container, edges: .vertical)
 
             VStack {
                 HStack {

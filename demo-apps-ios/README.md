@@ -91,18 +91,16 @@ localStorage.setItem('auth_token', 'eyJhbGciOiJIUzI1NiIs...');
 ### Prerequisites
 
 - **macOS**: 11 or later
-- **Xcode**: 14 or later
-- **iOS**: Target 14 or later
+- **Xcode**: 15 or later
+- **iOS**: Target 17 or later
+- **AI Sandbox + HostMCP**: connected (needed to start the backend — see [demo-apps/README.md](../demo-apps/README.md#quick-start))
 - **Backend**: `demo-apps` running
 
 ### How to Run
 
 #### 1. Start the Backend
 
-```bash
-cd demo-apps
-docker-compose -f docker-compose.demo.yml up -d
-```
+In the AI Sandbox, ask the AI to "start the demo backend" — this runs your AI Sandbox workspace's `.sandbox/host-tools/docker-compose-up.sh`, pointed at this demo's `demo-apps/docker-compose.demo.yml` (e.g. `demo-project/demo-apps/docker-compose.demo.yml`), via HostMCP (first run requires approval via `hostmcp tools sync`; see [demo-apps/README.md](../demo-apps/README.md#quick-start)).
 
 **Verify:**
 - API running at `http://api.securenote.test:8000/api`
@@ -116,6 +114,8 @@ docker-compose -f docker-compose.demo.yml up -d
 cd demo-apps-ios
 open SecureNote.xcodeproj
 ```
+
+If you're using AI Sandbox + HostMCP, you can also ask the AI to "build the iOS app" — this runs your AI Sandbox workspace's `.sandbox/host-tools/xcode-build.sh --project <path-to-this-demo>/demo-apps-ios/SecureNote.xcodeproj` (e.g. `--project demo-project/demo-apps-ios/SecureNote.xcodeproj`) via HostMCP (first run requires approval via `hostmcp tools sync`), giving you a compile check without opening Xcode yourself. Actually running the app in the Simulator (steps 3–4 below) still needs Xcode's GUI.
 
 #### 3. Run in Simulator
 
@@ -233,11 +233,9 @@ App.swift
 ```bash
 # Check if backend is running
 curl http://api.securenote.test:8000/api/health
-
-# Start if not running
-cd demo-apps
-docker-compose -f docker-compose.demo.yml up -d
 ```
+
+If it's not running, ask the AI to "start the demo backend" — this runs your AI Sandbox workspace's `.sandbox/host-tools/docker-compose-up.sh`, pointed at this demo's `demo-apps/docker-compose.demo.yml` (e.g. `demo-project/demo-apps/docker-compose.demo.yml`), via HostMCP.
 
 ### 2. Cannot Connect to Custom Domain
 

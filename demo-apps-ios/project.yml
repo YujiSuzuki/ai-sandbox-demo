@@ -1,0 +1,19 @@
+name: SecureNote
+options:
+  bundleIdPrefix: com.example
+targets:
+  SecureNote:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: SecureNote
+        excludes:
+          - Info.plist
+    info:
+      path: SecureNote/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.securenote
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
