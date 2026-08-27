@@ -1,0 +1,21 @@
+services:
+  demo-nextjs:
+    build: .
+    # Named to match the "demo-*" wildcard in hostmcp.demo.yaml's
+    # allowed_containers — otherwise HostMCP's get_logs/exec_command deny it.
+    container_name: demo-nextjs
+    ports:
+      - "3001:3000"
+    volumes:
+      # Mount real secrets (container has access)
+      # 実際のシークレットをマウント（コンテナはアクセス可能）
+      - ./secrets:/app/secrets:ro
+      - ./.env:/app/.env:ro
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
