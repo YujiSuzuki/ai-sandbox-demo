@@ -2,7 +2,7 @@
 
 A demonstration application for [AI Sandbox](https://github.com/YujiSuzuki/ai-sandbox), showing the same secret-hiding idea as the [demo-apps/](../demo-apps/) SecureNote demo, but for a Next.js app where frontend and backend run in a single process instead of separate web/api containers.
 
-> ⚠️ **Scaffold status:** this demo is a minimal skeleton (one route handler reading a secret file) — not yet a full walkthrough like `demo-apps/`. Contributions welcome.
+> ⚠️ **Scaffold status:** this demo is a minimal skeleton (one route handler reading a secret file) — not yet a full walkthrough like `demo-apps/`. Contributions welcome. The skeleton itself has been verified end-to-end (Docker build, HostMCP logs/healthcheck, browser) — see the Quick Start steps below.
 
 [日本語版はこちら](README.ja.md)
 
@@ -18,7 +18,7 @@ A demonstration application for [AI Sandbox](https://github.com/YujiSuzuki/ai-sa
 2. Ask the AI to check the `demo-nextjs` container logs or health via HostMCP before continuing.
 3. Open `http://localhost:3001` in your browser.
 
-### Local development (outside the sandbox)
+### Local development (without AI Sandbox)
 
 ```bash
 npm install
