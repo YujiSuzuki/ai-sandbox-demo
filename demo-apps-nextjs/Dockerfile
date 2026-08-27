@@ -16,8 +16,8 @@ FROM node:20-slim AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 # Required for standalone output: without it the server binds to "localhost"
-# only, so the container's own loopback (used by the healthcheck) can't
-# reach it even though externally-published traffic still gets through.
+# only, which Docker's published port mapping can't reach from outside the
+# container.
 ENV HOSTNAME="0.0.0.0"
 
 COPY --from=builder /app/public ./public
