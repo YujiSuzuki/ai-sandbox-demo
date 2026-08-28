@@ -1,0 +1,21 @@
+services:
+  demo-rust:
+    build: .
+    # Named to match the "demo-*" wildcard in hostmcp.demo.yaml's
+    # allowed_containers — otherwise HostMCP's get_logs/exec_command deny it.
+    container_name: demo-rust
+    ports:
+      - "3002:3000"
+    volumes:
+      # Mount real secrets (container has access)
+      # 実際のシークレットをマウント（コンテナはアクセス可能）
+      - ./secrets:/app/secrets:ro
+      - ./.env:/app/.env:ro
+    environment:
+      - PORT=3000
+      - DEMO_SECRET_PATH=/app/secrets/demo-secret.key
+    healthcheck:
+      test: ["CMD", "sh", "-c", "curl -sf http://localhost:3000/api/health | grep -q '\"status\":\"ok\"'"]
+      interval: 10s
+      timeout: 5s
+      retries: 3

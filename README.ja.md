@@ -13,6 +13,7 @@ AI アシスタントから機密情報を隠しつつ、[HostMCP](https://githu
 | [demo-apps/](demo-apps/) | SecureNote Web アプリ — Nginx + Node.js API + React フロントエンド |
 | [demo-apps-ios/](demo-apps-ios/) | SecureNote iOS アプリ — SwiftUI + WebView 統合 |
 | [demo-apps-nextjs/](demo-apps-nextjs/) | Next.js デモ — フロントエンド+バックエンドが単一プロセス（⚠️ 雛形段階、README参照） |
+| [demo-apps-rust/](demo-apps-rust/) | Rust デモ — 単一バイナリの axum サーバー（⚠️ 雛形段階、README参照） |
 
 このデモ自体はHostMCP用ホストツールを持ちません。このリポジトリはAI Sandboxのワークスペースの**内側に配置して使う**想定で（[前提条件](#前提条件)参照）、Docker操作はそのワークスペース側の`.sandbox/host-tools/`に既にある汎用の`docker-compose-up.sh`・`docker-compose-down.sh`・`docker-compose-build.sh`を、このデモの`demo-apps/docker-compose.demo.yml`に向けて実行します。
 

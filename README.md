@@ -11,6 +11,7 @@ Demo applications for [AI Sandbox](https://github.com/YujiSuzuki/ai-sandbox) —
 | [demo-apps/](demo-apps/) | SecureNote web app — Nginx + Node.js API + React frontend |
 | [demo-apps-ios/](demo-apps-ios/) | SecureNote iOS app — SwiftUI + WebView integration |
 | [demo-apps-nextjs/](demo-apps-nextjs/) | Next.js demo — single process frontend+backend (⚠️ scaffold, see its README) |
+| [demo-apps-rust/](demo-apps-rust/) | Rust demo — single-binary axum server (⚠️ scaffold, see its README) |
 
 These demos don't ship their own HostMCP host tools — this repo is meant to be placed *inside* an AI Sandbox workspace (see [Prerequisites](#prerequisites)), and Docker operations go through the generic `docker-compose-up.sh` / `docker-compose-down.sh` / `docker-compose-build.sh` already provided in that workspace's `.sandbox/host-tools/`, pointed at this demo's `demo-apps/docker-compose.demo.yml`.
 

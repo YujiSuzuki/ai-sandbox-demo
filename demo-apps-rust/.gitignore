@@ -1,0 +1,25 @@
+# build artifacts
+/target
+
+# Cargo.lock is normally committed for a binary crate, but this scaffold's
+# Docker build runs entirely inside the container with no local Rust
+# toolchain to generate/commit it from — see README.md.
+Cargo.lock
+
+# env files (can opt-in for committing if needed)
+.env*
+!.env.example
+
+# misc
+.DS_Store
+*.pem
+
+# Claude Code local settings (not to be committed)
+.claude/settings.local.json
+
+# Secrets
+*.key
+secrets/*
+!secrets/
+!secrets/README.md
+!secrets/README.ja.md

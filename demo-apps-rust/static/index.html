@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Sandbox Rust Demo</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 640px; margin: 4rem auto; padding: 0 1rem; }
+  code { background: #f0f0f0; padding: 0.1em 0.4em; border-radius: 4px; }
+  pre { background: #f0f0f0; padding: 1rem; border-radius: 8px; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+  <h1>AI Sandbox Rust Demo</h1>
+  <p>
+    Like the <code>demo-apps-nextjs</code> demo, this app runs frontend and
+    backend in a single process — here, an <code>axum</code> server instead
+    of Next.js. The <code>/api/health</code> handler still reads a secret
+    file server-side — see <code>secrets/README.md</code> for how it stays
+    hidden from the AI Sandbox container.
+  </p>
+  <pre id="status">Loading /api/health...</pre>
+  <script>
+    fetch("/api/health")
+      .then((res) => res.json())
+      .then((data) => {
+        document.getElementById("status").textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(() => {
+        document.getElementById("status").textContent = JSON.stringify({ status: "error" });
+      });
+  </script>
+</body>
+</html>
