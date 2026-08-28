@@ -62,6 +62,14 @@ async fn index() -> Html<&'static str> {
 
 #[tokio::main]
 async fn main() {
+    // Load .env for local `cargo run`; in Docker, DEMO_SECRET_PATH/PORT are
+    // already set via docker-compose.demo.yml's `environment:` block, which
+    // dotenv() never overrides.
+    // ローカルの `cargo run` 向けに .env を読み込む。Docker では
+    // docker-compose.demo.yml の `environment:` で既に設定済みであり、
+    // dotenv() はそれを上書きしない。
+    dotenvy::dotenv().ok();
+
     let app = Router::new()
         .route("/", get(index))
         .route("/api/health", get(health));

@@ -9,3 +9,4 @@ axum = "0.7"
 tokio = { version = "1", features = ["rt-multi-thread", "macros", "fs", "net"] }
 sha2 = "0.10"
 serde = { version = "1", features = ["derive"] }
+dotenvy = "0.15"

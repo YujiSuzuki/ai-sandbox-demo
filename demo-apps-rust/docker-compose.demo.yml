@@ -15,7 +15,7 @@ services:
       - PORT=3000
       - DEMO_SECRET_PATH=/app/secrets/demo-secret.key
     healthcheck:
-      test: ["CMD", "sh", "-c", "curl -sf http://localhost:3000/api/health | grep -q '\"status\":\"ok\"'"]
+      test: ["CMD", "sh", "-c", "curl -sf http://localhost:3000/api/health | grep -q '\"secretLoaded\":true'"]
       interval: 10s
       timeout: 5s
       retries: 3
